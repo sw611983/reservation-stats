@@ -1,0 +1,27 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Angular build
+reservation-stats-frontend/dist/
+reservation-stats-frontend/.angular/
+
+# Backend build
+backend/dist/
+
+# Environment files
+.env
+.env.local
+
+# SQLite database
+*.db
+*.sqlite
+
+# Sonar
+.scannerwork/
+
+# OS junk
+.DS_Store
+Thumbs.db

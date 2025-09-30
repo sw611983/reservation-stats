@@ -1,0 +1,52 @@
+<div class="controls">
+  <label>
+    Restaurant:
+    <select [(ngModel)]="selectedRestaurantId" (change)="loadStats()">
+      <option *ngFor="let r of restaurants" [ngValue]="r.id">{{ r.name }}</option>
+    </select>
+  </label>
+
+  <label>
+    From:
+    <input type="date" [(ngModel)]="from" />
+  </label>
+
+  <label>
+    To:
+    <input type="date" [(ngModel)]="to" />
+  </label>
+
+  <button (click)="loadStats()">Load</button>
+</div>
+
+<div *ngIf="stats">
+  <h2>Reservation stats — {{stats.from}} → {{stats.to}}</h2>
+
+  <div style="max-width: 900px; margin-bottom: 1rem;">
+    <canvas baseChart
+            [data]="chartData"
+            [options]="chartOptions"
+            chartType="bar">
+    </canvas>
+  </div>
+
+  <h3>Detailed counts (weekday → group sizes)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Weekday</th>
+          <th *ngFor="let gs of stats.groupSizes">Size {{gs}}</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let wd of objectKeys(stats.weekdayGroupCounts)">
+          <td>{{ wd }}</td>
+          <td *ngFor="let gs of stats.groupSizes">{{ stats.weekdayGroupCounts[wd].groups[gs] || 0 }}</td>
+          <td>{{ stats.weekdayGroupCounts[wd].total }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
